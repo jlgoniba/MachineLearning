@@ -35,7 +35,8 @@ class Preprocess:
         index = 0
         for column in self.independent_matrix[0]:
             if type(column) is str:
-                self.independent_matrix[:, index] = independent_label_encoder.fit_transform(self.independent_matrix[:, index])
+                self.independent_matrix[:, index] = independent_label_encoder.fit_transform(
+                    self.independent_matrix[:, index])
             index = index + 1
         independent_onehotencoder = OneHotEncoder(categorical_features=[categorical_features])
         self.independent_matrix = independent_onehotencoder.fit_transform(self.independent_matrix).toarray()
@@ -45,8 +46,12 @@ class Preprocess:
 
     def create_train_test_matrix(self, test_size = 0.2, random_state = 0):
         from sklearn.model_selection import train_test_split
-        self.independent_train_matrix, self.independent_test_matrix= train_test_split(self.independent_matrix, test_size=test_size, random_state=random_state)
-        self.dependent_train_matrix, self.dependent_test_matrix= train_test_split(self.dependent_matrix, test_size=test_size, random_state=random_state)
+        self.independent_train_matrix, self.independent_test_matrix= train_test_split(self.independent_matrix,
+                                                                                      test_size=test_size,
+                                                                                      random_state=random_state)
+        self.dependent_train_matrix, self.dependent_test_matrix= train_test_split(self.dependent_matrix,
+                                                                                  test_size=test_size,
+                                                                                  random_state=random_state)
 
     def scale_features(self):
         from sklearn.preprocessing import StandardScaler
