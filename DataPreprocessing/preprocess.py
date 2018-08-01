@@ -60,3 +60,24 @@ class Preprocess:
         self.independent_test_matrix = independent_scaler.transform(self.independent_test_matrix)
         dependent_scaler = StandardScaler()
         self.dependent_train_matrix = dependent_scaler.fit_transform(self.dependent_train_matrix)
+
+    def quick_preprocess(self, source, independent_index, dependent_index):
+        print("doing quick pre-process of data")
+        self.create_dataset(source, independent_index, dependent_index)
+        self.create_train_test_matrix()
+        print("quick pre-process finished")
+
+    def complete_preprocess(self, source, independent_index, dependent_index):
+        print("doing quick pre-process of data")
+        self.create_dataset(source, independent_index, dependent_index)
+        self.fill_missing_data()
+        self.encode_data()
+        self.create_train_test_matrix()
+        self.scale_features()
+        print("doing quick pre-process of data")
+
+    def doPreprocess(self, source, independent_index, dependent_index, complete=False):
+        if complete:
+            self.complete_preprocess(source, independent_index, dependent_index)
+        else:
+            self.quick_preprocess(source, independent_index, dependent_index)
